@@ -7,7 +7,7 @@ Summary(pl.UTF-8):	Implementacja JavaScriptu
 Name:		jsext
 Version:	0.12
 Release:	1
-License:	GPL or Netscape Public License 1.1
+License:	LGPL or GPL or Mozilla Public License 1.1, part BSD
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/jsext/%{name}-%{version}.tar.gz
 # Source0-md5:	9980d5bdcec8d4a2b5455f3264b42184
