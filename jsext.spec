@@ -1,8 +1,4 @@
-#
-# Conditional build:
-%bcond_without	threads	# thread-safe library (requires nspr)
-#
-Summary:	JavaScript Implementation
+Summary:	JavaScript implementation
 Summary(pl.UTF-8):	Implementacja JavaScriptu
 Name:		jsext
 Version:	0.12
@@ -24,13 +20,19 @@ small "shell" program that can be used interactively and with .js
 files to run scripts. This version extends the interpreter with the
 ability to access libraries written in C.
 
+%description -l pl.UTF-8
+Wzorcowa implementacja JavaScriptu (o nazwie kodowej SpiderMonkey).
+Pakiet zawiera środowisko uruchomieniowe (kompilator, interpreter,
+dekompilator, odśmiecacz, standardowe klasy) i niewielką powłokę,
+która może być używana interaktywnie lub z plikami .js do uruchamiania
+skryptów. Ta wersja rozszerza interpreter o możliwość dostępu do
+bibliotek napisanych w C.
+
 %package devel
 Summary:	Header files for JavaScript library
 Summary(pl.UTF-8):	Pliki nagłówkowe do biblioteki JavaScript
 Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-%{?with_threads:Provides:	js-devel(threads)}
-Conflicts:	njs-devel
+Requires:	%{name} = %{version}-%{release}
 
 %description devel
 Header files for JavaScript library.
@@ -42,12 +44,13 @@ Pliki nagłówkowe do biblioteki JavaScript.
 Summary:	Static JavaScript library
 Summary(pl.UTF-8):	Statyczna biblioteka JavaScript
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-%{?with_threads:Provides:	js-static(threads)}
-Conflicts:	njs-static
+Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 Static version of JavaScript library.
+
+%description static -l pl.UTF-8
+Statyczna biblioteka JavaScript.
 
 %prep
 %setup -q
@@ -59,6 +62,7 @@ Static version of JavaScript library.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_libdir},%{_includedir}/js}
+
 %{__make} install \
 	libdir=$RPM_BUILD_ROOT%{_libdir} \
 	bindir=$RPM_BUILD_ROOT%{_bindir}
@@ -76,15 +80,14 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_libdir}/%{name}-%{version}
 %attr(755,root,root) %{_libdir}/%{name}-%{version}/*.so
 
-
-%files devel
-%defattr(644,root,root,755)
+#%files devel
+#%defattr(644,root,root,755)
 #%attr(755,root,root) %{_libdir}/libjs.so
 #%dir %{_includedir}/js
 #%{_includedir}/js/js.msg
 #%{_includedir}/js/jsopcode.tbl
 #%{_includedir}/js/js[!j]*.h
 
-%files static
-%defattr(644,root,root,755)
+#%files static
+#%defattr(644,root,root,755)
 #%{_libdir}/libjs.a
